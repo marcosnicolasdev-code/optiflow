@@ -1,6 +1,6 @@
-# Sistema de Gestión Óptica · Contactología
+# OptiFlow · Sistema de Gestión para Ópticas
 
-Sistema para registrar y consultar las fichas de clientes del área de contactología de una óptica. Reemplaza las fichas en papel por una base de datos con historial completo: qué recetó el oftalmólogo, qué lentes se probaron, qué terminó usando el cliente, qué compró, en qué estado está su pedido y cuándo es su próximo turno.
+**OptiFlow** es un sistema para registrar y consultar las fichas de clientes del área de contactología de una óptica. Reemplaza las fichas en papel por una base de datos con historial completo: qué recetó el oftalmólogo, qué lentes se probaron, qué terminó usando el cliente, qué compró, en qué estado está su pedido y cuándo es su próximo turno.
 
 Está diseñado para crecer: el modelo ya contempla sumar caja diaria, el área de óptica tradicional (armazones y cristales) y facturación electrónica.
 
@@ -194,8 +194,8 @@ erDiagram
 Requisitos: Python 3.12 o superior, PostgreSQL y Git.
 
 ```bash
-git clone https://github.com/marcosnicolasdev-code/<nombre-del-repo>.git
-cd <nombre-del-repo>
+git clone https://github.com/marcosnicolasdev-code/optiflow.git
+cd optiflow
 
 python -m venv venv
 source venv/Scripts/activate      # Git Bash en Windows
@@ -217,7 +217,7 @@ El sistema queda disponible en `http://localhost:8000` y el panel de administrac
 |---|---|
 | `SECRET_KEY` | Clave secreta de Django |
 | `DEBUG` | `True` en desarrollo |
-| `DB_NAME` | Nombre de la base |
+| `DB_NAME` | Nombre de la base, `optiflow` |
 | `DB_USER` | Usuario de PostgreSQL |
 | `DB_PASSWORD` | Contraseña de PostgreSQL |
 | `DB_HOST` | Host, normalmente `localhost` |
