@@ -49,10 +49,20 @@ class GraduacionOjo(models.Model):
 
     
 class Receta(models.Model):
+    class Diagnostico(models.TextChoices):
+        MIOPIA= "MIOPIA", "Miopía"
+        HIPERMETROPIA= "HIPERMETROPIA", "Hipermetropía"
+        ASTIGMATISMO= "ASTIGMATISMO", "Astigmatismo"
+        PRESBICIA= "PRESBICIA", "Presbicia"
+        AMETROPIA= "AMETROPIA", "Ametropia"
+        ESTRABISMO= "ESTRABISMO", "Estrabismo"
+        ANISOMETROPIA= "ANISOMETROPIA", "Anisometropía"
+
+    
     cliente = models.ForeignKey("clientes.Cliente", on_delete=models.PROTECT, related_name="recetas")
     oftalmologo = models.ForeignKey("profesionales.Oftalmologo", on_delete=models.PROTECT, related_name="recetas")
     fecha_receta = models.DateField(default=date.today, null=True, blank=True)
-    diagnostico = models.CharField(max_length=100, blank=True)
+    diagnostico = models.CharField(max_length=20, blank=True, choices=Diagnostico)
     firmada = models.BooleanField("con firma y sello", default=False)
     obra_social = models.CharField(max_length=100, blank=True)
     observaciones_receta = models.TextField(blank=True)
