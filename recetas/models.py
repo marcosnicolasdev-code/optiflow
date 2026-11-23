@@ -75,5 +75,23 @@ class Receta(models.Model):
             faltan.append("firma y sello")
         return faltan
     
+class RecetaOjo(GraduacionOjo):
+    class Distancia(models.TextChoices):
+        LEJOS = "LEJOS", "Lejos"
+        CERCA = "CERCA", "Cerca"
+
+    receta = models.ForeignKey("recetas.Receta", on_delete=models.CASCADE, related_name="ojos")
+    distancia = models.CharField(max_length=5, choices=Distancia, default=Distancia.LEJOS)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["receta", "ojo", "distancia"],
+                name="receta_ojo_distancia_unica",
+            )
+        ] 
+
+    def __str__(self):
+        return f"{self.ojo} {self.get_distancia_display()} - {self.receta})"
 
 

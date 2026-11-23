@@ -1,3 +1,12 @@
 from django.contrib import admin
+from .models import Receta, RecetaOjo
 
-# Register your models here.
+
+class RecetaOjoInline(admin.TabularInline):
+    model = RecetaOjo
+    extra = 2
+
+
+@admin.register(Receta)
+class RecetaAdmin(admin.ModelAdmin):
+    inlines = [RecetaOjoInline]
