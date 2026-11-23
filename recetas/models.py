@@ -1,4 +1,5 @@
 from decimal import Decimal
+from datetime import date
 
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
@@ -45,4 +46,34 @@ class GraduacionOjo(models.Model):
         
     class Meta:
         abstract = True
+
+    
+class Receta(models.Model):
+    cliente = models.ForeignKey("clientes.Cliente", on_delete=models.PROTECT, related_name="recetas")
+    oftalmologo = models.ForeignKey("profesionales.Oftalmologo", on_delete=models.PROTECT, related_name="recetas")
+    fecha_receta = models.DateField(default=date.today, null=True, blank=True)
+    diagnostico = models.CharField(max_length=100, blank=True)
+    firmada = models.BooleanField("con firma y sello", default=False)
+    obra_social = models.CharField(max_length=100, blank=True)
+    observaciones_receta = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["-fecha_receta", "-id"]
+        
+    def __str__(self):
+        fecha = self.fecha_receta or "sin fecha"
+        return f"Receta de {self.cliente} ({fecha})"
+
+    #Verificador de recetas completas
+    def faltantes_legales(self):
+        faltan = []
+        if not self.fecha_receta:
+            faltan.append("fecha")
+        if not self.diagnostico:
+            faltan.append("diagnóstico")
+        if not self.firmada:
+            faltan.append("firma y sello")
+        return faltan
+    
+
 
